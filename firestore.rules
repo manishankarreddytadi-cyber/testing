@@ -1,0 +1,57 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /global_users/{userId} {
+      allow read, write: if request.auth != null;
+    }
+    match /invites/{inviteId} {
+      allow read, write: if request.auth != null;
+    }
+    match /invite_codes/{codeId} {
+      allow read, write: if request.auth != null;
+    }
+
+    match /organizations/{orgId} {
+      function isAdmin() {
+        return get(/databases/$(database)/documents/organizations/$(orgId)/users/$(request.auth.uid)).data.role == 'Admin';
+      }
+
+      allow read, write: if request.auth != null;
+
+      match /{col1}/{doc1} {
+        allow read, write: if request.auth != null;
+
+        match /{col2}/{doc2} {
+          allow read, create, delete: if request.auth != null;
+          allow update: if request.auth != null && (
+            col2 != 'ponds' || isAdmin() || 
+            !(resource.data.get('status', '') != 'inactive' && request.resource.data.get('status', '') == 'inactive')
+          );
+
+          match /{col3}/{doc3} {
+             allow read, create, delete: if request.auth != null;
+             allow update: if request.auth != null && (
+               col3 != 'cycles' || isAdmin() || 
+               !(resource.data.get('status', '') != 'completed' && request.resource.data.get('status', '') == 'completed')
+             );
+             
+             match /{col4}/{doc4} {
+               allow read: if request.auth != null;
+               allow write: if request.auth != null && (
+                 col4 != 'harvests' || isAdmin()
+               );
+               
+               match /{document=**} {
+                 allow read, write: if request.auth != null;
+               }
+             }
+          }
+        }
+      }
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
