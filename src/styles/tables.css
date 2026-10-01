@@ -1,0 +1,199 @@
+/* =============================================
+   Excel-Like Tables
+   ============================================= */
+.table-container {
+  background-color: var(--surface);
+  border: 1px solid var(--border-dark);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.excel-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.excel-table th,
+.excel-table td {
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.excel-table th {
+  background-color: var(--bg-color);
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border-dark);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  user-select: none;
+}
+
+.excel-table th.sortable {
+  cursor: pointer;
+}
+.excel-table th.sortable:hover {
+  background-color: #e9ecef;
+}
+
+/* Numeric / Highlight Columns */
+.excel-table td.num-col,
+.excel-table th.num-col {
+  text-align: right;
+}
+.excel-table th.highlight-col {
+  background-color: #e5e7eb;
+  color: var(--text-main);
+}
+.excel-table td.highlight-col {
+  background-color: var(--highlight-bg);
+  font-weight: 600;
+}
+
+/* Small table variant */
+.sm-table th,
+.sm-table td {
+  padding: 4px 8px;
+}
+
+/* Entry row (inline data entry) */
+.excel-table .entry-row td {
+  background-color: #f9fafb;
+  padding: 4px;
+}
+.excel-table .entry-row input,
+.excel-table .entry-row select {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 4px;
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text-main);
+}
+.excel-table .entry-row select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px top 50%;
+  background-size: 10px auto;
+  padding-right: 16px;
+  cursor: pointer;
+}
+.excel-table .entry-row input:focus,
+.excel-table .entry-row select:focus {
+  background-color: white;
+  box-shadow: 0 0 0 1px var(--primary) inset;
+}
+
+/* Editable cells (contentEditable) */
+.editable-cell {
+  cursor: default;
+  transition: background-color 0.1s;
+}
+.editable-cell[contenteditable="true"] {
+  cursor: text;
+  background-color: #fffde7;
+}
+.editable-cell[contenteditable="true"]:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+  background-color: var(--surface);
+}
+
+/* =============================================
+   Filter Icon in Table Headers
+   ============================================= */
+.th-filter-icon {
+  margin-left: 4px;
+  opacity: 0.4;
+  font-size: 10px;
+  cursor: pointer;
+}
+.th-filter-icon.active {
+  opacity: 1;
+  color: var(--primary);
+}
+
+/* =============================================
+   Excel Filter Popup
+   ============================================= */
+.excel-filter-popup {
+  position: fixed;
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  z-index: 2000;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+}
+.filter-sort-options button {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-main);
+}
+.filter-sort-options button:hover {
+  background: var(--bg-color);
+}
+.filter-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 4px 0;
+}
+.filter-checkboxes {
+  max-height: 160px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 4px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.checkbox-label:hover {
+  background-color: var(--bg-color);
+}
+.filter-date-range {
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.filter-date-range span {
+  font-weight: 600;
+  font-size: 12px;
+}
+.filter-actions {
+  padding: 8px 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid var(--border-color);
+}
+
+

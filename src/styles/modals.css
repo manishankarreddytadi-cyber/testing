@@ -1,0 +1,111 @@
+/* =============================================
+   Modal Overlay & Container
+   ============================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: var(--surface);
+  border-radius: 8px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+.modal-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--text-muted);
+  line-height: 1;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+}
+.modal-close-btn:hover {
+  color: var(--text-main);
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  flex: 1;
+}
+.modal-body-table {
+  padding: 0;
+  max-height: 55vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.modal-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.modal-footer.space-between {
+  justify-content: space-between;
+}
+
+/* =============================================
+   Usage Type Selection Modal
+   ============================================= */
+.usage-type-buttons {
+  display: flex;
+  gap: 20px;
+  padding: 30px 20px;
+}
+.usage-type-btn {
+  flex: 1;
+  padding: 20px;
+  font-size: 16px;
+  flex-direction: column;
+  gap: 12px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.usage-type-btn svg {
+  font-size: 24px;
+}
+
+/* =============================================
+   Nested Modal z-index
+   ============================================= */
+.modal-overlay.nested {
+  z-index: 1050;
+}
